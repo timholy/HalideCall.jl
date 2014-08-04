@@ -1,0 +1,4 @@
+*.so
+*.h
+*.o
+examples/blur_generate
