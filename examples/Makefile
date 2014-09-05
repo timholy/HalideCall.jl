@@ -18,3 +18,16 @@ blur%.o: blur_generate
 
 libblur: $(BLURFILES)
 	gcc -fPIC -shared $(BLURFILES) -o libblur.so
+
+
+
+accum_generate: accum_generate.cpp
+	$(CXX) accum_generate.cpp $(CFLAGS) -o accum_generate
+
+ACCUMFILES = accum_vectorized.o accum_tiled.o
+
+accum%.o: accum_generate
+	./accum_generate
+
+libaccum: $(ACCUMFILES)
+	gcc -fPIC -shared $(ACCUMFILES) -o libaccum.so

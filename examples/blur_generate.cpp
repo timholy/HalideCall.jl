@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
         output(x, y) = (blur_x(x, y-1) + blur_x(x, y) + blur_x(x, y+1))/9;
 
 	Var xi, yi;
-	output.tile(x, y, xi, yi, 256, 32).vectorize(xi, 4);
+	output.tile(x, y, xi, yi, 1024, 16).vectorize(xi, 4);
 	blur_x.compute_at(output, x).vectorize(x, 4);
 
 	std::vector<Argument> args;

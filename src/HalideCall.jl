@@ -5,7 +5,6 @@ export HalideBuffer
 const libname = "libhalidecall.so"
 const libHalideCall = find_library([libname], [Pkg.dir("HalideCall", "deps")])
 isempty(libHalideCall) && error("Can't find $libname")
-dlopen(libHalideCall)
 
 immutable HalideBuffer
     dev::Uint64

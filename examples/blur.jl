@@ -28,9 +28,9 @@ blur_twopasses(A) = blur_twopasses!(similar(A), similar(A), A)
 
 function blur_tiled!(blur_xy, A)
     interior_x, interior_y = 2:size(A,1)-1, 2:size(A,2)-1
-    KernelTools.@tile (x,256,y,8) (@inbounds blur_y[x,y] = A[x,y-1]+A[x,y]+A[x,y+1]) begin
+    KernelTools.@tile (x,1024,y,16) (@inbounds blur_x[x,y] = A[x-1,y]+A[x,y]+A[x+1,y]) begin
         for y = interior_y, x = interior_x
-            @inbounds blur_xy[x,y] = (one(eltype(A))/9)*(blur_y[x-1,y] + blur_y[x,y] + blur_y[x+1,y])
+            @inbounds blur_xy[x,y] = (one(eltype(A))/9)*(blur_x[x,y-1] + blur_x[x,y] + blur_x[x,y+1])
         end
     end
     blur_xy
